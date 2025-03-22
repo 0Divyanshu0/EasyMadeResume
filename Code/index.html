@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .header {
+            background: #f0e6d2;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .description {
+            max-width: 50%;
+            text-align: left;
+        }
+        .resume-preview {
+            width: 45%;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: #fff;
+            text-align: center;
+        }
+        .resume-preview img {
+            width: 100%;
+            border-radius: 5px;
+            display: block;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Professional Resume Builder</h1>
+        <button onclick="location.href='contact.html'">Contact Us</button>
+    </div>
+    <div class="container">
+        <div class="description">
+            <h2>Build Your Resume with Ease</h2>
+            <p>Choose from many templates, easily shortlist for interviews, and create a professional resume in minutes.</p>
+            <button onclick="location.href='builder.html'">Start Building</button>
+        </div>
+        <div class="resume-preview">
+            <h3>Preview</h3>
+            <img src="your-resume-image.png" alt="Resume Preview" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x400?text=Resume+Preview';">
+        </div>
+    </div>
+</body>
+</html>
