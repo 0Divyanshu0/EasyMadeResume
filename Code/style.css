@@ -1,0 +1,88 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f5eb;
+    text-align: center;
+    color: #333;
+}
+.header {
+    background: #3a3a3a;
+    padding: 20px;
+    color: white;
+}
+.brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ff9800;
+    margin: 0;
+}
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.description {
+    max-width: 50%;
+    text-align: left;
+}
+.resume-preview {
+    width: 45%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.resume-preview img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+button {
+    background-color: #ff9800;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #e68900;
+}
+.steps {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+.steps h2 {
+    text-align: center;
+    color: #333;
+}
+.steps ul {
+    list-style: none;
+    padding: 0;
+}
+.steps li {
+    margin: 10px 0;
+    font-size: 18px;
+}
