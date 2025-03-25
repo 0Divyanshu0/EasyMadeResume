@@ -118,6 +118,58 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .faq-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        .faq-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ff9800;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .faq {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .faq h3 {
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            margin: 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq h3::after {
+            content: '+';
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .faq.active h3::after {
+            content: '-';
+        }
+        .faq p {
+            display: none;
+            padding: 10px;
+            font-size: 16px;
+            color: #555;
+            background: #f1f1f1;
+            border-radius: 5px;
+            margin-top: 5px;
+            transition: max-height 0.3s ease-out;
+        }
     </style>
     <script>
         function toggleChat() {
@@ -144,6 +196,20 @@
                 }, 1000);
             }
         }
+        document.addEventListener("DOMContentLoaded", function () {
+            var faqs = document.querySelectorAll(".faq h3");
+            faqs.forEach(function (faq) {
+                faq.addEventListener("click", function () {
+                    this.parentNode.classList.toggle("active");
+                    var answer = this.nextElementSibling;
+                    if (answer.style.display === "block") {
+                        answer.style.display = "none";
+                    } else {
+                        answer.style.display = "block";
+                    }
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -168,6 +234,21 @@
         <div class="chat-input">
             <input type="text" id="chatInput" placeholder="Type your message...">
             <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq">
+            <h3>How do I create a resume?</h3>
+            <p>Simply enter your details, select a template, and download your resume instantly.</p>
+        </div>
+        <div class="faq">
+            <h3>Is this service free?</h3>
+            <p>Yes! Our basic resume-building service is completely free.</p>
+        </div>
+        <div class="faq">
+            <h3>Can I edit my resume after downloading?</h3>
+            <p>Yes, you can always come back, edit your details, and generate a new resume.</p>
         </div>
     </div>
     <div class="footer">
