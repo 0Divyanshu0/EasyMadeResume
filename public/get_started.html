@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyMadeResume</title>
+    <style>
+/*Animated Header Icon*/
+
+
+
+.header {
+background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+padding: 20px;
+color: #ff9800;
+position: relative;
+overflow: hidden;
+}
+
+/* Animated Gradient Background */
+@keyframes moving-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Animated Header Icon */
+.header {
+    background: linear-gradient(270deg, #3a3a3a, #2a2a2a, #3a3a3a);
+    background-size: 600% 600%;
+    animation: moving-gradient 8s ease infinite;
+    padding: 20px;
+    color: #ff9800;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Social Media Icons */
+.social-icons {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: #ff9800;
+    text-decoration: none;
+    font-size: 24px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.3);
+    color: #e68900;
+}
+
+
+/*Animated Header Ends*/
+body 
+{
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f5eb;
+    color: #333;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.step {
+    display: none;
+}
+
+.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.progress {
+    width: 100%;
+    background: #ddd;
+    height: 8px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #ff9800;
+    transition: width 0.3s ease;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #f4f4f4;
+    color: #333;
+}
+
+button {
+    background: #ff9800;
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    transition: transform 0.2s ease-in-out;
+}
+
+button:hover 
+{
+    transform: scale(1.05);
+    background-color: #e68900;
+}
+
+.footer {
+    font-family: 'Raleway', sans-serif;
+    background: #3a3a3a;
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 16px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+</style>
+</head>
+<body>
+    <div class="header">
+    <h1>EasyMadeResume</h1>
+    <div class="social-icons">
+        <a href="#" title="LinkedIn">&#x1F4E3;</a>
+        <a href="#" title="GitHub">&#x1F4BB;</a>
+        <a href="#" title="Twitter">&#x1F426;</a>
+    </div>
+</div>
+
+    <div class="container">
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <h2>Get Started</h2>
+        <div class="step active" id="step1">
+            <h3>Step 1: Personal Information</h3>
+            <input type="text" id="name" placeholder="Full Name" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <input type="text" id="phone" placeholder="Phone" required><br>
+            <button onclick="nextStep(1)">Next</button>
+        </div>
+        <div class="step" id="step2">
+            <h3>Step 2: Work Experience</h3>
+            <input type="text" id="jobTitle" placeholder="Job Title" required><br>
+            <input type="text" id="company" placeholder="Company" required><br>
+            <input type="text" id="duration" placeholder="Duration" required><br>
+            <button onclick="prevStep(2)">Back</button>
+            <button onclick="nextStep(2)">Next</button>
+        </div>
+        <div class="step" id="step3">
+            <h3>Step 3: Education</h3>
+            <input type="text" id="degree" placeholder="Degree" required><br>
+            <input type="text" id="institution" placeholder="Institution" required><br>
+            <input type="text" id="year" placeholder="Year of Completion" required><br>
+            <button onclick="prevStep(3)">Back</button>
+            <button onclick="showPreview()">Preview</button>
+        </div>
+        <div class="step" id="preview">
+            <h3>Preview</h3>
+            <div id="previewContent"></div>
+            <button onclick="prevStep(4)">Back</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 EasyMadeResume. All rights reserved.</p>
+    </div>
+    <script>
+        let currentStep = 1;
+        function nextStep(step) {
+            const totalSteps = 3;
+            let inputs = document.querySelectorAll(`#step${step} input`);
+            for (let input of inputs) {
+                if (!input.value) {
+                    alert("Please fill out all fields");
+                    return;
+                }
+            }
+            document.getElementById(`step${step}`).classList.remove("active");
+            document.getElementById(`step${step + 1}`).classList.add("active");
+            currentStep++;
+            updateProgressBar();
+        }
+    </script>
+</body>
+</html>
