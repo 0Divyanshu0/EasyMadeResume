@@ -170,9 +170,18 @@
             margin-top: 5px;
             transition: max-height 0.3s ease-out;
         }
+        .footer {
+    background: #3a3a3a;
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+}
     </style>
-    <script>
-        
+    
+    <script> 
         function toggleChat() {
             var chatBox = document.getElementById("chatBox");
             if (chatBox.style.display === "none" || chatBox.style.display === "") {
@@ -210,7 +219,8 @@
                     }
                 });
             });
-        });
+        })
+        ;
     </script>
 </head>
 <body>
@@ -291,7 +301,9 @@
 
     this.reset(); // Clear form after submission
   });
+  
 </script>
+
 </body>
 </html>
 </body>
