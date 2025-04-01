@@ -40,6 +40,4 @@ Want to improve this project? Follow these steps:
 3. Commit your changes (`git commit -m 'Added new feature'`).
 4. Push to the branch (`git push origin feature-name`).
 5. Open a Pull Request!
-
 ---
-Made with ❤️ by **Divyanshu Srivastava**
