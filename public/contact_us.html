@@ -179,7 +179,197 @@
     font-size: 16px;
     font-family: 'Raleway', sans-serif;
 }
-    </style>
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Header Adjustments */
+    .header {
+        flex-direction: column; /* Stack header elements */
+        align-items: center; /* Center items vertically */
+    }
+
+    .brand-name {
+        font-size: 28px; /* Smaller brand name */
+        margin-bottom: 10px; /* Add some space below the brand */
+    }
+
+    .social-icons {
+        position: static; /* Flow with the content */
+        margin-bottom: 10px;
+    }
+
+    .header-buttons {
+        position: static; /* Flow with the content */
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center buttons horizontally */
+    }
+
+    .header-buttons button {
+        margin: 5px 0; /* Adjust button spacing */
+        width: 80%; /* Make buttons wider */
+    }
+
+    /* Main Content (.container) */
+    .container {
+        flex-direction: column; /* Stack description and preview */
+        padding: 20px;
+    }
+
+    .description,
+    .resume-preview {
+        width: 100%; /* Full width on mobile */
+        max-width: 100%;
+        margin-bottom: 20px; /* Add spacing between stacked elements */
+        text-align: center; /* Center text in description on mobile */
+    }
+
+    /* How It Works Section */
+    .steps-container {
+        flex-direction: column; /* Stack steps vertically */
+    }
+
+    .step {
+        width: 100%; /* Full width for each step */
+        margin-bottom: 20px;
+        text-align: center; /* Center content within steps */
+    }
+
+    .step img {
+        max-width: 80px; /* Adjust image size */
+        height: auto;
+    }
+
+    /* Footer */
+    .footer {
+        position: static; /* Flow with content on mobile */
+        margin-top: 20px;
+        padding: 15px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Header Adjustments */
+    .header {
+        flex-direction: column; /* Stack header elements */
+        align-items: center; /* Center items horizontally */
+        padding: 15px; /* Adjust header padding */
+    }
+
+    .brand-name {
+        font-size: 28px; /* Smaller brand name */
+        margin-bottom: 10px; /* Add space below brand */
+    }
+
+    .social-icons {
+        position: static; /* Flow with content */
+        display: flex;
+        justify-content: center; /* Center icons */
+        margin-bottom: 10px;
+    }
+
+    .header-buttons {
+        position: static; /* Flow with content */
+        display: flex;
+        flex-direction: column; /* Stack buttons */
+        align-items: stretch; /* Make buttons full width */
+        width: 80%; /* Limit button width */
+        margin: 10px auto; /* Center buttons and add spacing */
+    }
+
+    .header-buttons button {
+        margin: 5px 0; /* Vertical spacing for buttons */
+    }
+
+    /* Main Content (.container) */
+    .container {
+        flex-direction: column; /* Stack description and preview */
+        padding: 15px;
+    }
+
+    .description,
+    .resume-preview {
+        width: 100%; /* Full width on mobile */
+        max-width: 100%;
+        margin-bottom: 20px; /* Spacing between stacked elements */
+        text-align: center; /* Center text in description */
+    }
+
+    .resume-preview img {
+        max-width: 90%; /* Adjust image width */
+        height: auto;
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+        padding: 15px;
+    }
+
+    .steps-container {
+        flex-direction: column; /* Stack steps */
+    }
+
+    .step {
+        width: 100%; /* Full width for steps */
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .step img {
+        max-width: 60px; /* Adjust step icon size */
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    /* Footer */
+    .footer {
+        position: static; /* Flow with content */
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Smaller Mobile Devices */
+@media (max-width: 480px) {
+    .brand-name {
+        font-size: 24px;
+    }
+
+    .header-buttons {
+        width: 95%;
+    }
+
+    .header-buttons button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .description p {
+        font-size: 16px;
+    }
+
+    .how-it-works h2 {
+        font-size: 20px;
+    }
+
+    .step h3 {
+        font-size: 16px;
+    }
+
+    .step p {
+        font-size: 14px;
+    }
+
+    .footer {
+        font-size: 12px;
+    }
+}    
+</style>
     
     <script> 
         function toggleChat() {
