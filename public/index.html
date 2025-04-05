@@ -49,34 +49,165 @@
                 </div>
             </div>
         </div>
+    <div class="how-it-works ats-checker-section">
+    <h2>Check Your Resume for Keywords</h2>
+    <p style="font-size: 16px; color: #555; margin-bottom: 20px;">Paste your resume text and the job description below to see how well they match.</p>
+
+    <div class="steps-container" style="flex-direction: column; align-items: center; gap: 15px;">
+        <div class="step" style="width: 80%; box-shadow: none; border: 1px solid #ddd; background: #fff;">
+            <label for="resume-text" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333; text-align: left;">Your Resume:</label>
+            <textarea id="resume-text" placeholder="Paste your resume text here" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; min-height: 150px;"></textarea>
+        </div>
+
+        <div class="step" style="width: 80%; box-shadow: none; border: 1px solid #ddd; background: #fff;">
+            <label for="job-description" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333; text-align: left;">Job Description:</label>
+            <textarea id="job-description" placeholder="Paste the job description here" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; min-height: 150px;"></textarea>
+        </div>
+
+        <button onclick="checkKeywords()" style="width: 200px; margin-top: 20px;">Check Keywords</button>
+
+        <div id="keyword-results" class="results-area" style="display: none; margin-top: 20px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: left;">
+            <h3 style="color: #ff9800; margin-top: 0;">Keyword Match Results:</h3>
+            <p><span id="keyword-count" style="font-weight: bold;">0</span> keywords found.</p>
+            <p style="margin-bottom: 5px;">Matching Keywords:</p>
+            <ul id="matching-keywords" style="list-style-type: disc; margin-left: 20px; padding-left: 0;"></ul>
+        </div>
+    </div>
+</div>
         <div class="footer">
             <p>&copy; 2025 EasyMadeResume. All rights reserved.</p>
         </div>
     </div>
     
-    <script>
-        // Typewriter Effect
-        document.addEventListener("DOMContentLoaded", function () {
-            const text = "Crafting Your Perfect Resume...";
-            let index = 0;
-            const typewriter = document.querySelector(".typewriter");
-            function typeEffect() {
-                if (index < text.length) {
-                    typewriter.innerHTML += text.charAt(index);
-                    index++;
-                    setTimeout(typeEffect, 100);
-                } else {
+<script>
+    // Typewriter Effect
+    document.addEventListener("DOMContentLoaded", function () {
+        const text = "Crafting Your Perfect Resume, Let's Get Started Now";
+        let index = 0;
+        const typewriter = document.querySelector(".typewriter");
+        function typeEffect() {
+            if (index < text.length) {
+                typewriter.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeEffect, 100);
+            } else {
+                setTimeout(() => {
+                    document.querySelector(".preloader").style.opacity = "0";
                     setTimeout(() => {
-                        document.querySelector(".preloader").style.opacity = "0";
-                        setTimeout(() => {
-                            document.querySelector(".preloader").style.display = "none";
-                            document.querySelector(".main-content").style.display = "block";
-                        }, 1000);
-                    }, 500);
-                }
+                        document.querySelector(".preloader").style.display = "none";
+                        document.querySelector(".main-content").style.display = "block";
+                    }, 1000);
+                }, 500);
             }
-            typeEffect();
+        }
+        typeEffect();
+    });
+
+    /* ATS SCORE LOGIC */
+    let previousResumeText = '';
+    let previousJobDescription = '';
+    let hasRunOnce = false;
+
+    function checkKeywords() {
+        const resumeText = document.getElementById('resume-text').value.toLowerCase();
+        const jobDescription = document.getElementById('job-description').value.toLowerCase();
+        const keywordResultsDiv = document.getElementById('keyword-results');
+
+        if (!resumeText || !jobDescription) {
+            alert('Please paste both your resume text and the job description.');
+            return;
+        }
+
+        const isSameInput =
+            resumeText === previousResumeText &&
+            jobDescription === previousJobDescription;
+
+        const isResultsVisible = keywordResultsDiv.style.display === 'block';
+
+        if (hasRunOnce && isSameInput && isResultsVisible) {
+            const confirmAgain = confirm(
+                "The resume and job description haven't changed. Do you want to analyze again?"
+            );
+            if (!confirmAgain) return;
+        }
+
+        // Clear previous results completely before new analysis
+        keywordResultsDiv.innerHTML = `
+            <p>Total Matching Keywords: <span id="keyword-count">0</span></p>
+            <ul id="matching-keywords"></ul>
+        `;
+        const keywordCountSpan = document.getElementById('keyword-count');
+        const matchingKeywordsUl = document.getElementById('matching-keywords');
+
+        // Keyword analysis
+        const jobKeywords = jobDescription.split(/\s+|[,.;:()\-"']/);
+        const uniqueJobKeywords = [...new Set(jobKeywords)].filter(
+            (keyword) => keyword.length > 2
+        );
+        const totalUniqueKeywords = uniqueJobKeywords.length;
+
+        let foundKeywordsCount = 0;
+        const foundKeywords = [];
+
+        uniqueJobKeywords.forEach((keyword) => {
+            if (resumeText.includes(keyword)) {
+                foundKeywordsCount++;
+                foundKeywords.push(keyword);
+            }
         });
-    </script>
+
+        keywordCountSpan.textContent = foundKeywordsCount;
+
+        let scorePercentage = 0;
+        if (totalUniqueKeywords > 0) {
+            scorePercentage = Math.round(
+                (foundKeywordsCount / totalUniqueKeywords) * 100
+            );
+        }
+
+        const scoreParagraph = document.createElement('p');
+        scoreParagraph.innerHTML = `ATS Score: <span style="font-weight: bold; color: green;">${scorePercentage}%</span>`;
+        keywordResultsDiv.appendChild(scoreParagraph);
+
+        const explanation = document.createElement('p');
+        explanation.style.fontSize = '14px';
+        explanation.style.color = '#555';
+        explanation.innerHTML =
+            "<b>Note:</b> The ATS score is calculated as a percentage of matched keywords relative to the total unique keywords in the job description. A shorter job description may yield a higher score even with fewer keyword matches.";
+        keywordResultsDiv.appendChild(explanation);
+
+        if (foundKeywords.length > 0) {
+            foundKeywords.forEach((keyword) => {
+                const li = document.createElement('li');
+                li.textContent = keyword;
+                matchingKeywordsUl.appendChild(li);
+            });
+        } else {
+            matchingKeywordsUl.innerHTML = '<li>No matching keywords found.</li>';
+            const suggestionParagraph = document.createElement('p');
+            suggestionParagraph.style.color = 'orange';
+            suggestionParagraph.innerHTML =
+                "<b>Suggestion:</b> Review the job description carefully and ensure your resume uses similar keywords to describe your relevant skills and experience.";
+            keywordResultsDiv.appendChild(suggestionParagraph);
+        }
+
+        if (scorePercentage < 50 && totalUniqueKeywords > 0) {
+            const lowScoreAdvice = document.createElement('p');
+            lowScoreAdvice.style.color = 'red';
+            lowScoreAdvice.innerHTML =
+                "<b>Tip:</b> Your ATS score is below 50%. Consider tailoring your resume more closely to the job description.";
+            keywordResultsDiv.appendChild(lowScoreAdvice);
+        }
+
+        keywordResultsDiv.style.display = 'block';
+
+        // Update previous input state
+        previousResumeText = resumeText;
+        previousJobDescription = jobDescription;
+        hasRunOnce = true;
+    }
+</script>
+
+
 </body>
 </html>
