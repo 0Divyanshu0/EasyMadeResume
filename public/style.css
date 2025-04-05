@@ -1,6 +1,49 @@
 /* styles.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:wght@500&family=Raleway:wght@400&display=swap');
 
+.header {
+    background: #3a3a3a;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .brand-name {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ff9800;
+    margin: 10px;
+    flex-grow: 1; /* allow the header to take up space between the invisible divs */
+}
+
+.header-right {
+    display: flex; /* Ensure buttons are in a flex layout */
+}
+
+.header button {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.header button:hover {
+    background-color: #e68900;
+}
+
+.header-left {
+    width: 0px; /* invisible left div */
+}
+
+
 .preloader {
     position: fixed;
     top: 0;
