@@ -345,3 +345,88 @@ button:hover {
         font-size: 12px;
     }
 }
+/* Basic styling for the ATS checker section */
+.ats-checker-section {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.ats-checker-section h2 {
+    text-align: center;
+    color: #ff9800;
+    margin-bottom: 15px;
+}
+
+.ats-checker-section .input-group {
+    margin-bottom: 15px;
+}
+
+.ats-checker-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.ats-checker-section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    min-height: 100px;
+}
+
+.ats-checker-section button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 12px 25px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.ats-checker-section button:hover {
+    background-color: #e68900;
+}
+
+.ats-checker-section .results-area {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.ats-checker-section .results-area h3 {
+    color: #ff9800;
+    margin-top: 0;
+}
+
+.ats-checker-section .results-area ul {
+    list-style-type: none; /* Remove bullet points */
+    margin-left: 0; /* Reset margin */
+    padding-left: 0; /* Reset padding */
+    display: flex; /* Enable flexbox */
+    flex-wrap: wrap; /* Allow keywords to wrap to the next line */
+    gap: 5px 10px; /* Add spacing between keywords (row and column) */
+}
+
+.ats-checker-section .results-area ul li {
+    background-color: #e0f2f7; /* Light background for each keyword */
+    color: #03a9f4; /* Blue color for text */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
