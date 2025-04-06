@@ -5,20 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyMadeResume</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .preloader .background-logo {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            opacity: 0.15;
+            filter: blur(6px);
+            z-index: 0;
+        }
+
+        .preloader .tagline {
+            font-size: 36px;
+            font-weight: 600;
+            color: orange;
+            margin-bottom: 40px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .preloader .typewriter {
+            font-size: inherit; /* Inherit from tagline */
+            font-weight: inherit;
+            color: inherit;
+            border-right: none; /* Remove typewriter effect */
+            white-space: normal; /* Allow wrapping */
+            overflow: visible; /* Show full text */
+            width: auto; /* Adjust width */
+            animation: none; /* Remove typing animation */
+        }
+
+        .preloader .loader {
+            --path: white;
+            --dot: orange;
+            --duration: 2.5s;
+            width: 44px;
+            height: 44px;
+            position: relative;
+            display: inline-block;
+            margin: 0 16px;
+            z-index: 1;
+        }
+
+        .preloader .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .preloader .loader svg circle {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            stroke-dasharray: 150 50 150 50;
+            stroke-dashoffset: 75;
+            animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .preloader .loader div {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+            animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        @keyframes pathCircle {
+            25% { stroke-dashoffset: 125; }
+            50% { stroke-dashoffset: 175; }
+            75% { stroke-dashoffset: 225; }
+            100% { stroke-dashoffset: 275; }
+        }
+
+        @keyframes dotRect {
+            25% { transform: translate(0, 0); }
+            50% { transform: translate(18px, -18px); }
+            75% { transform: translate(0, -36px); }
+            100% { transform: translate(-18px, -18px); }
+        }
+
+        .main-content {
+            display: none; /* Initially hidden */
+        }
+    </style>
 </head>
 <body>
     <div class="preloader">
-        <h1 class="typewriter">  Crafting Your Perfect Resume, Let's Get Started Now </h1>
+        <img src="EasyMadeResume_Logo.png" alt="EasyMadeResume Logo" class="background-logo">
+        <div class="tagline">
+            EasyMadeResume
+        </div>
+        <div class="loader">
+            <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32"></circle>
+            </svg>
+            <div></div>
+        </div>
     </div>
-    
+
     <div class="main-content">
         <div class="header">
-    <div class="header-left"></div> <h1 class="brand-name">EasyMadeResume</h1>
-    <div class="header-right">
-        <button onclick="location.href='get_started.html'">Get Started</button>
-        <button onclick="location.href='contact_us.html'">Contact Us</button>
-    </div>
-</div>
+            <div class="header-left"></div> <h1 class="brand-name">EasyMadeResume</h1>
+            <div class="header-right">
+                <button onclick="location.href='get_started.html'">Get Started</button>
+                <button onclick="location.href='contact_us.html'">Contact Us</button>
+            </div>
+        </div>
         <div class="container">
             <div class="description">
                 <h2>Create Your Resume in Minutes</h2>
@@ -49,165 +170,157 @@
                 </div>
             </div>
         </div>
-    <div class="how-it-works ats-checker-section">
-    <h2>Check Your Resume for Keywords</h2>
-    <p style="font-size: 16px; color: #555; margin-bottom: 20px;">Paste your resume text and the job description below to see how well they match.</p>
+        <div class="how-it-works ats-checker-section">
+            <h2>Check Your Resume for Keywords</h2>
+            <p style="font-size: 16px; color: #555; margin-bottom: 20px;">Paste your resume text and the job description below to see how well they match.</p>
 
-    <div class="steps-container" style="flex-direction: column; align-items: center; gap: 15px;">
-        <div class="step" style="width: 80%; box-shadow: none; border: 1px solid #ddd; background: #fff;">
-            <label for="resume-text" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333; text-align: left;">Your Resume:</label>
-            <textarea id="resume-text" placeholder="Paste your resume text here" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; min-height: 150px;"></textarea>
+            <div class="steps-container" style="flex-direction: column; align-items: center; gap: 15px;">
+                <div class="step" style="width: 80%; box-shadow: none; border: 1px solid #ddd; background: #fff;">
+                    <label for="resume-text" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333; text-align: left;">Your Resume:</label>
+                    <textarea id="resume-text" placeholder="Paste your resume text here" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; min-height: 150px;"></textarea>
+                </div>
+
+                <div class="step" style="width: 80%; box-shadow: none; border: 1px solid #ddd; background: #fff;">
+                    <label for="job-description" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333; text-align: left;">Job Description:</label>
+                    <textarea id="job-description" placeholder="Paste the job description here" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; min-height: 150px;"></textarea>
+                </div>
+
+                <button onclick="checkKeywords()" style="width: 200px; margin-top: 20px;">Check Keywords</button>
+
+                <div id="keyword-results" class="results-area" style="display: none; margin-top: 20px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: left;">
+                    <h3 style="color: #ff9800; margin-top: 0;">Keyword Match Results:</h3>
+                    <p><span id="keyword-count" style="font-weight: bold;">0</span> keywords found.</p>
+                    <p style="margin-bottom: 5px;">Matching Keywords:</p>
+                    <ul id="matching-keywords" style="list-style-type: disc; margin-left: 20px; padding-left: 0;"></ul>
+                </div>
+            </div>
         </div>
-
-        <div class="step" style="width: 80%; box-shadow: none; border: 1px solid #ddd; background: #fff;">
-            <label for="job-description" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333; text-align: left;">Job Description:</label>
-            <textarea id="job-description" placeholder="Paste the job description here" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; min-height: 150px;"></textarea>
-        </div>
-
-        <button onclick="checkKeywords()" style="width: 200px; margin-top: 20px;">Check Keywords</button>
-
-        <div id="keyword-results" class="results-area" style="display: none; margin-top: 20px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: left;">
-            <h3 style="color: #ff9800; margin-top: 0;">Keyword Match Results:</h3>
-            <p><span id="keyword-count" style="font-weight: bold;">0</span> keywords found.</p>
-            <p style="margin-bottom: 5px;">Matching Keywords:</p>
-            <ul id="matching-keywords" style="list-style-type: disc; margin-left: 20px; padding-left: 0;"></ul>
-        </div>
-    </div>
-</div>
         <div class="footer">
             <p>&copy; 2025 EasyMadeResume. All rights reserved.</p>
         </div>
     </div>
-    
-<script>
-    // Typewriter Effect
-    document.addEventListener("DOMContentLoaded", function () {
-        const text = "Crafting Your Perfect Resume, Let's Get Started Now";
-        let index = 0;
-        const typewriter = document.querySelector(".typewriter");
-        function typeEffect() {
-            if (index < text.length) {
-                typewriter.innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeEffect, 100);
-            } else {
+
+    <script>
+        // Preloader Logic
+        document.addEventListener("DOMContentLoaded", function () {
+            const preloader = document.querySelector(".preloader");
+            const mainContent = document.querySelector(".main-content");
+
+            // Simulate loading time (replace with your actual loading check)
+            setTimeout(() => {
+                preloader.style.opacity = "0";
                 setTimeout(() => {
-                    document.querySelector(".preloader").style.opacity = "0";
-                    setTimeout(() => {
-                        document.querySelector(".preloader").style.display = "none";
-                        document.querySelector(".main-content").style.display = "block";
-                    }, 1000);
-                }, 500);
-            }
-        }
-        typeEffect();
-    });
-
-    /* ATS SCORE LOGIC */
-    let previousResumeText = '';
-    let previousJobDescription = '';
-    let hasRunOnce = false;
-
-    function checkKeywords() {
-        const resumeText = document.getElementById('resume-text').value.toLowerCase();
-        const jobDescription = document.getElementById('job-description').value.toLowerCase();
-        const keywordResultsDiv = document.getElementById('keyword-results');
-
-        if (!resumeText || !jobDescription) {
-            alert('Please paste both your resume text and the job description.');
-            return;
-        }
-
-        const isSameInput =
-            resumeText === previousResumeText &&
-            jobDescription === previousJobDescription;
-
-        const isResultsVisible = keywordResultsDiv.style.display === 'block';
-
-        if (hasRunOnce && isSameInput && isResultsVisible) {
-            const confirmAgain = confirm(
-                "The resume and job description haven't changed. Do you want to analyze again?"
-            );
-            if (!confirmAgain) return;
-        }
-
-        // Clear previous results completely before new analysis
-        keywordResultsDiv.innerHTML = `
-            <p>Total Matching Keywords: <span id="keyword-count">0</span></p>
-            <ul id="matching-keywords"></ul>
-        `;
-        const keywordCountSpan = document.getElementById('keyword-count');
-        const matchingKeywordsUl = document.getElementById('matching-keywords');
-
-        // Keyword analysis
-        const jobKeywords = jobDescription.split(/\s+|[,.;:()\-"']/);
-        const uniqueJobKeywords = [...new Set(jobKeywords)].filter(
-            (keyword) => keyword.length > 2
-        );
-        const totalUniqueKeywords = uniqueJobKeywords.length;
-
-        let foundKeywordsCount = 0;
-        const foundKeywords = [];
-
-        uniqueJobKeywords.forEach((keyword) => {
-            if (resumeText.includes(keyword)) {
-                foundKeywordsCount++;
-                foundKeywords.push(keyword);
-            }
+                    preloader.style.display = "none";
+                    mainContent.style.display = "block";
+                }, 500); // Fade out duration
+            }, 2000); // Adjust this timeout to match your actual loading time
         });
 
-        keywordCountSpan.textContent = foundKeywordsCount;
+        /* ATS SCORE LOGIC */
+        let previousResumeText = '';
+        let previousJobDescription = '';
+        let hasRunOnce = false;
 
-        let scorePercentage = 0;
-        if (totalUniqueKeywords > 0) {
-            scorePercentage = Math.round(
-                (foundKeywordsCount / totalUniqueKeywords) * 100
+        function checkKeywords() {
+            const resumeText = document.getElementById('resume-text').value.toLowerCase();
+            const jobDescription = document.getElementById('job-description').value.toLowerCase();
+            const keywordResultsDiv = document.getElementById('keyword-results');
+            const keywordCountSpan = document.getElementById('keyword-count');
+            const matchingKeywordsUl = document.getElementById('matching-keywords');
+
+            if (!resumeText || !jobDescription) {
+                alert('Please paste both your resume text and the job description.');
+                return;
+            }
+
+            const isSameInput =
+                resumeText === previousResumeText &&
+                jobDescription === previousJobDescription;
+
+            const isResultsVisible = keywordResultsDiv.style.display === 'block';
+
+            if (hasRunOnce && isSameInput && isResultsVisible) {
+                const confirmAgain = confirm(
+                    "The resume and job description haven't changed. Do you want to analyze again?"
+                );
+                if (!confirmAgain) return;
+            }
+
+            // Clear previous results completely before new analysis
+            keywordResultsDiv.innerHTML = `
+                <h3 style="color: #ff9800; margin-top: 0;">Keyword Match Results:</h3>
+                <p><span id="keyword-count">0</span> keywords found.</p>
+                <p style="margin-bottom: 5px;">Matching Keywords:</p>
+                <ul id="matching-keywords" style="list-style-type: disc; margin-left: 20px; padding-left: 0;"></ul>
+            `;
+
+            // Keyword analysis
+            const jobKeywords = jobDescription.split(/\s+|[,.;:()\-"']/);
+            const uniqueJobKeywords = [...new Set(jobKeywords)].filter(
+                (keyword) => keyword.length > 2
             );
-        }
+            const totalUniqueKeywords = uniqueJobKeywords.length;
 
-        const scoreParagraph = document.createElement('p');
-        scoreParagraph.innerHTML = `ATS Score: <span style="font-weight: bold; color: green;">${scorePercentage}%</span>`;
-        keywordResultsDiv.appendChild(scoreParagraph);
+            let foundKeywordsCount = 0;
+            const foundKeywords = [];
 
-        const explanation = document.createElement('p');
-        explanation.style.fontSize = '14px';
-        explanation.style.color = '#555';
-        explanation.innerHTML =
-            "<b>Note:</b> The ATS score is calculated as a percentage of matched keywords relative to the total unique keywords in the job description. A shorter job description may yield a higher score even with fewer keyword matches.";
-        keywordResultsDiv.appendChild(explanation);
-
-        if (foundKeywords.length > 0) {
-            foundKeywords.forEach((keyword) => {
-                const li = document.createElement('li');
-                li.textContent = keyword;
-                matchingKeywordsUl.appendChild(li);
+            uniqueJobKeywords.forEach((keyword) => {
+                if (resumeText.includes(keyword)) {
+                    foundKeywordsCount++;
+                    foundKeywords.push(keyword);
+                }
             });
-        } else {
-            matchingKeywordsUl.innerHTML = '<li>No matching keywords found.</li>';
-            const suggestionParagraph = document.createElement('p');
-            suggestionParagraph.style.color = 'orange';
-            suggestionParagraph.innerHTML =
-                "<b>Suggestion:</b> Review the job description carefully and ensure your resume uses similar keywords to describe your relevant skills and experience.";
-            keywordResultsDiv.appendChild(suggestionParagraph);
+
+            keywordCountSpan.textContent = foundKeywordsCount;
+
+            let scorePercentage = 0;
+            if (totalUniqueKeywords > 0) {
+                scorePercentage = Math.round(
+                    (foundKeywordsCount / totalUniqueKeywords) * 100
+                );
+            }
+
+            const scoreParagraph = document.createElement('p');
+            scoreParagraph.innerHTML = `ATS Score: <span style="font-weight: bold; color: green;">${scorePercentage}%</span>`;
+            keywordResultsDiv.appendChild(scoreParagraph);
+
+            const explanation = document.createElement('p');
+            explanation.style.fontSize = '14px';
+            explanation.style.color = '#555';
+            explanation.innerHTML =
+                "<b>Note:</b> The ATS score is calculated as a percentage of matched keywords relative to the total unique keywords in the job description. A shorter job description may yield a higher score even with fewer keyword matches.";
+            keywordResultsDiv.appendChild(explanation);
+
+            if (foundKeywords.length > 0) {
+                foundKeywords.forEach((keyword) => {
+                    const li = document.createElement('li');
+                    li.textContent = keyword;
+                    matchingKeywordsUl.appendChild(li);
+                });
+            } else {
+                matchingKeywordsUl.innerHTML = '<li>No matching keywords found.</li>';
+                const suggestionParagraph = document.createElement('p');
+                suggestionParagraph.style.color = 'orange';
+                suggestionParagraph.innerHTML =
+                    "<b>Suggestion:</b> Review the job description carefully and ensure your resume uses similar keywords to describe your relevant skills and experience.";
+                keywordResultsDiv.appendChild(suggestionParagraph);
+            }
+
+            if (scorePercentage < 50 && totalUniqueKeywords > 0) {
+                const lowScoreAdvice = document.createElement('p');
+                lowScoreAdvice.style.color = 'red';
+                lowScoreAdvice.innerHTML =
+                    "<b>Tip:</b> Your ATS score is below 50%. Consider tailoring your resume more closely to the job description.";
+                keywordResultsDiv.appendChild(lowScoreAdvice);
+            }
+
+            keywordResultsDiv.style.display = 'block';
+
+            // Update previous input state
+            previousResumeText = resumeText;
+            previousJobDescription = jobDescription;
+            hasRunOnce = true;
         }
-
-        if (scorePercentage < 50 && totalUniqueKeywords > 0) {
-            const lowScoreAdvice = document.createElement('p');
-            lowScoreAdvice.style.color = 'red';
-            lowScoreAdvice.innerHTML =
-                "<b>Tip:</b> Your ATS score is below 50%. Consider tailoring your resume more closely to the job description.";
-            keywordResultsDiv.appendChild(lowScoreAdvice);
-        }
-
-        keywordResultsDiv.style.display = 'block';
-
-        // Update previous input state
-        previousResumeText = resumeText;
-        previousJobDescription = jobDescription;
-        hasRunOnce = true;
-    }
-</script>
-
-
+    </script>
 </body>
 </html>
