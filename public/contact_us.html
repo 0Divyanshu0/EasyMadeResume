@@ -171,247 +171,206 @@
             transition: max-height 0.3s ease-out;
         }
         .footer {
-    background: #3a3a3a;
-    color: white;
-    padding: 20px;
-    margin-top: 40px;
-    text-align: center;
-    font-size: 16px;
-    font-family: 'Raleway', sans-serif;
-}
-/* Mobile Responsive Styles */
-@media (max-width: 768px) {
-    /* Header Adjustments */
-    .header {
-        flex-direction: column; /* Stack header elements */
-        align-items: center; /* Center items vertically */
-    }
+            background: #3a3a3a;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 16px;
+            font-family: 'Raleway', sans-serif;
+        }
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            /* Header Adjustments */
+            .header {
+                flex-direction: column; /* Stack header elements */
+                align-items: center; /* Center items vertically */
+            }
 
-    .brand-name {
-        font-size: 28px; /* Smaller brand name */
-        margin-bottom: 10px; /* Add some space below the brand */
-    }
+            .brand-name {
+                font-size: 28px; /* Smaller brand name */
+                margin-bottom: 10px; /* Add some space below the brand */
+            }
 
-    .social-icons {
-        position: static; /* Flow with the content */
-        margin-bottom: 10px;
-    }
+            .social-icons {
+                position: static; /* Flow with the content */
+                margin-bottom: 10px;
+            }
 
-    .header-buttons {
-        position: static; /* Flow with the content */
-        flex-direction: column; /* Stack buttons vertically */
-        align-items: center; /* Center buttons horizontally */
-    }
+            .header-buttons {
+                position: static; /* Flow with the content */
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: center; /* Center buttons horizontally */
+            }
 
-    .header-buttons button {
-        margin: 5px 0; /* Adjust button spacing */
-        width: 80%; /* Make buttons wider */
-    }
+            .header-buttons button {
+                margin: 5px 0; /* Adjust button spacing */
+                width: 80%; /* Make buttons wider */
+            }
 
-    /* Main Content (.container) */
-    .container {
-        flex-direction: column; /* Stack description and preview */
-        padding: 20px;
-    }
+            /* Main Content (.container) */
+            .container {
+                flex-direction: column; /* Stack description and preview */
+                padding: 20px;
+            }
 
-    .description,
-    .resume-preview {
-        width: 100%; /* Full width on mobile */
-        max-width: 100%;
-        margin-bottom: 20px; /* Add spacing between stacked elements */
-        text-align: center; /* Center text in description on mobile */
-    }
+            .description,
+            .resume-preview {
+                width: 100%; /* Full width on mobile */
+                max-width: 100%;
+                margin-bottom: 20px; /* Add spacing between stacked elements */
+                text-align: center; /* Center text in description on mobile */
+            }
 
-    /* How It Works Section */
-    .steps-container {
-        flex-direction: column; /* Stack steps vertically */
-    }
+            /* How It Works Section */
+            .steps-container {
+                flex-direction: column; /* Stack steps vertically */
+            }
 
-    .step {
-        width: 100%; /* Full width for each step */
-        margin-bottom: 20px;
-        text-align: center; /* Center content within steps */
-    }
+            .step {
+                width: 100%; /* Full width for each step */
+                margin-bottom: 20px;
+                text-align: center; /* Center content within steps */
+            }
 
-    .step img {
-        max-width: 80px; /* Adjust image size */
-        height: auto;
-    }
+            .step img {
+                max-width: 80px; /* Adjust image size */
+                height: auto;
+            }
 
-    /* Footer */
-    .footer {
-        position: static; /* Flow with content on mobile */
-        margin-top: 20px;
-        padding: 15px;
-        font-size: 14px;
-    }
-}
-
-/* Mobile Responsive Styles */
-@media (max-width: 768px) {
-    /* Header Adjustments */
-    .header {
-        flex-direction: column; /* Stack header elements */
-        align-items: center; /* Center items horizontally */
-        padding: 15px; /* Adjust header padding */
-    }
-
-    .brand-name {
-        font-size: 28px; /* Smaller brand name */
-        margin-bottom: 10px; /* Add space below brand */
-    }
-
-    .social-icons {
-        position: static; /* Flow with content */
-        display: flex;
-        justify-content: center; /* Center icons */
-        margin-bottom: 10px;
-    }
-
-    .header-buttons {
-        position: static; /* Flow with content */
-        display: flex;
-        flex-direction: column; /* Stack buttons */
-        align-items: stretch; /* Make buttons full width */
-        width: 80%; /* Limit button width */
-        margin: 10px auto; /* Center buttons and add spacing */
-    }
-
-    .header-buttons button {
-        margin: 5px 0; /* Vertical spacing for buttons */
-    }
-
-    /* Main Content (.container) */
-    .container {
-        flex-direction: column; /* Stack description and preview */
-        padding: 15px;
-    }
-
-    .description,
-    .resume-preview {
-        width: 100%; /* Full width on mobile */
-        max-width: 100%;
-        margin-bottom: 20px; /* Spacing between stacked elements */
-        text-align: center; /* Center text in description */
-    }
-
-    .resume-preview img {
-        max-width: 90%; /* Adjust image width */
-        height: auto;
-    }
-
-    /* How It Works Section */
-    .how-it-works {
-        padding: 15px;
-    }
-
-    .steps-container {
-        flex-direction: column; /* Stack steps */
-    }
-
-    .step {
-        width: 100%; /* Full width for steps */
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .step img {
-        max-width: 60px; /* Adjust step icon size */
-        height: auto;
-        margin-bottom: 10px;
-    }
-
-    /* Footer */
-    .footer {
-        position: static; /* Flow with content */
-        margin-top: 20px;
-        padding: 10px;
-        font-size: 14px;
-    }
-}
-
-/* Smaller Mobile Devices */
-@media (max-width: 480px) {
-    .brand-name {
-        font-size: 24px;
-    }
-
-    .header-buttons {
-        width: 95%;
-    }
-
-    .header-buttons button {
-        font-size: 14px;
-        padding: 10px 15px;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    .description p {
-        font-size: 16px;
-    }
-
-    .how-it-works h2 {
-        font-size: 20px;
-    }
-
-    .step h3 {
-        font-size: 16px;
-    }
-
-    .step p {
-        font-size: 14px;
-    }
-
-    .footer {
-        font-size: 12px;
-    }
-}    
-</style>
-    
-    <script> 
-        function toggleChat() {
-            var chatBox = document.getElementById("chatBox");
-            if (chatBox.style.display === "none" || chatBox.style.display === "") {
-                chatBox.style.display = "flex";
-            } else {
-                chatBox.style.display = "none";
+            /* Footer */
+            .footer {
+                position: static; /* Flow with content on mobile */
+                margin-top: 20px;
+                padding: 15px;
+                font-size: 14px;
             }
         }
-        function sendMessage() {
-            var input = document.getElementById("chatInput");
-            var message = input.value;
-            if (message.trim() !== "") {
-                var chatMessages = document.getElementById("chatMessages");
-                var newMessage = document.createElement("p");
-                newMessage.textContent = "You: " + message;
-                chatMessages.appendChild(newMessage);
-                input.value = "";
-                setTimeout(function () {
-                    var botMessage = document.createElement("p");
-                    botMessage.textContent = "Support: Thank you for your message. We will get back to you soon!";
-                    chatMessages.appendChild(botMessage);
-                }, 1000);
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            /* Header Adjustments */
+            .header {
+                flex-direction: column; /* Stack header elements */
+                align-items: center; /* Center items horizontally */
+                padding: 15px; /* Adjust header padding */
+            }
+
+            .brand-name {
+                font-size: 28px; /* Smaller brand name */
+                margin-bottom: 10px; /* Add space below brand */
+            }
+
+            .social-icons {
+                position: static; /* Flow with content */
+                display: flex;
+                justify-content: center; /* Center icons */
+                margin-bottom: 10px;
+            }
+
+            .header-buttons {
+                position: static; /* Flow with content */
+                display: flex;
+                flex-direction: column; /* Stack buttons */
+                align-items: stretch; /* Make buttons full width */
+                width: 80%; /* Limit button width */
+                margin: 10px auto; /* Center buttons and add spacing */
+            }
+
+            .header-buttons button {
+                margin: 5px 0; /* Vertical spacing for buttons */
+            }
+
+            /* Main Content (.container) */
+            .container {
+                flex-direction: column; /* Stack description and preview */
+                padding: 15px;
+            }
+
+            .description,
+            .resume-preview {
+                width: 100%; /* Full width on mobile */
+                max-width: 100%;
+                margin-bottom: 20px; /* Spacing between stacked elements */
+                text-align: center; /* Center text in description */
+            }
+
+            .resume-preview img {
+                max-width: 90%; /* Adjust image width */
+                height: auto;
+            }
+
+            /* How It Works Section */
+            .how-it-works {
+                padding: 15px;
+            }
+
+            .steps-container {
+                flex-direction: column; /* Stack steps */
+            }
+
+            .step {
+                width: 100%; /* Full width for steps */
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .step img {
+                max-width: 60px; /* Adjust step icon size */
+                height: auto;
+                margin-bottom: 10px;
+            }
+
+            /* Footer */
+            .footer {
+                position: static; /* Flow with content */
+                margin-top: 20px;
+                padding: 10px;
+                font-size: 14px;
             }
         }
-        document.addEventListener("DOMContentLoaded", function () {
-            var faqs = document.querySelectorAll(".faq h3");
-            faqs.forEach(function (faq) {
-                faq.addEventListener("click", function () {
-                    this.parentNode.classList.toggle("active");
-                    var answer = this.nextElementSibling;
-                    if (answer.style.display === "block") {
-                        answer.style.display = "none";
-                    } else {
-                        answer.style.display = "block";
-                    }
-                });
-            });
-        })
-        ;
-    </script>
+
+        /* Smaller Mobile Devices */
+        @media (max-width: 480px) {
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .header-buttons {
+                width: 95%;
+            }
+
+            .header-buttons button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .description p {
+                font-size: 16px;
+            }
+
+            .how-it-works h2 {
+                font-size: 20px;
+            }
+
+            .step h3 {
+                font-size: 16px;
+            }
+
+            .step p {
+                font-size: 14px;
+            }
+
+            .footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+
 </head>
 <body>
     <div class="header">
@@ -421,7 +380,7 @@
     <div class="contact-container">
         <h2>Contact Us</h2>
         <p>Have any questions or need support? Reach out and we'll get back to you soon!</p>
-        <form action="#" method="POST">
+        <form action="#" method="POST" id="contact-form">
             <input type="text" id="name" name="name" placeholder="Enter your name" required>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
             <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
@@ -455,46 +414,44 @@
     <div class="footer">
         <p>&copy; 2024 EasyMadeResume. All rights reserved.</p>
     </div>
-<!-- Other HTML content -->
+
 <script type="module">
-  // Import Firebase SDK
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
 
-  // Firebase Configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAU3wIPL-3t49owuhyfl8Hq2yWBplVGXOw",
-    authDomain: "easymaderesume.firebaseapp.com",
-    databaseURL: "https://easymaderesume-default-rtdb.firebaseio.com/", 
-    projectId: "easymaderesume",
-    storageBucket: "easymaderesume.appspot.com",
-    messagingSenderId: "758597546579",
-    appId: "1:758597546579:web:0f05f4c480428cba5a0ca6",
-    measurementId: "G-GQJXJLM6ZS"
-  };
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAU3wIPL-3t49owuhyfl8Hq2yWBplVGXOw",
+        authDomain: "easymaderesume.firebaseapp.com",
+        databaseURL: "https://easymaderesume-default-rtdb.firebaseio.com",
+        projectId: "easymaderesume",
+        storageBucket: "easymaderesume.firebasestorage.app",
+        messagingSenderId: "758597546579",
+        appId: "1:758597546579:web:0f05f4c480428cba5a0ca6",
+        measurementId: "G-GQJXJLM6ZS"
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-  // Handle Form Submission
-  document.getElementById("contact-form").addEventListener("submit", function (event) {
-    event.preventDefault();
+    // Handle Form Submission
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
 
-    push(ref(db, "messages"), { name, email, message })
-      .then(() => alert("Message Sent Successfully!"))
-      .catch(error => alert("Error: " + error.message));
+        push(ref(db, "messages"), { name, email, message })
+            .then(() => alert("Message Sent Successfully!"))
+            .catch(error => alert("Error: " + error.message));
 
-    this.reset(); // Clear form after submission
-  });
-  
+        this.reset(); // Clear form after submission
+    });
+
 </script>
 
-</body>
-</html>
 </body>
 </html>
