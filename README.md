@@ -1,7 +1,7 @@
 # Resume Builder 🚀
 
 <p align="center">
-  <img src="path/to/logo.png" alt="EasyMadeResume Logo" width="200"/>
+  <img src="public/EasyMadeResume_Logo.png" alt="EasyMadeResume Logo" width="200"/>
 </p>
 
 
