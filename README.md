@@ -1,13 +1,8 @@
 # Resume Builder 🚀
 
 <p align="center">
-  <img src="public/EasyMadeResume_GIF.gif" width="500" />
+  <img src="public/EasyMadeResume_GIF.gif" width="1000" />
 </p>
-
-<p align="center">
-  <img src="public/EasyMadeResume_Logo.png" alt="EasyMadeResume Logo" width="200"/>
-</p>
-
 
 ## Overview
 A simple and professional **Resume Builder** that allows users to create their resumes easily. Users can choose between **Basic** and **Professional** resume formats and preview their resume before downloading.
