@@ -1,7 +1,7 @@
 # Resume Builder 🚀
 
 <p align="center">
-  <img src="public/EasyMadeResume_GIF.gif" width="300" />
+  <img src="public/EasyMadeResume_GIF.gif" width="500" />
 </p>
 
 <p align="center">
