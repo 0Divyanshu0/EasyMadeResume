@@ -2,20 +2,23 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+The following table outlines the versions of **EasyMadeResume** currently supported with security updates:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version   | Supported          |
+| --------- | ------------------ |
+| 1.1.x     | :white_check_mark: |
+| 1.0.x     | :white_check_mark: |
+| < 1.0     | :x:                |
+
+> ⚠️ Note: Only the latest minor versions are actively maintained.
+> ℹ️ Note: The Project is in the development phase and many modules are under development; this website's final version may vary in the future.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you discover a security vulnerability in **EasyMadeResume**, please report it responsibly:
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+- **Email**: [divyanshusrivastava777@gmail.com]
+- **Response Time**: You can expect an acknowledgment within 48 hours and a resolution (if accepted) within 7 days.
+- **Preferred Disclosure**: Private, responsible disclosure is preferred to allow time for a fix before public disclosure.
+
+We appreciate your help in making **EasyMadeResume** safer for everyone.
