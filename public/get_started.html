@@ -417,6 +417,16 @@
         font-size: 12px;
     }
 }
+.info-note {
+    font-size: 14px;
+    color: #555;
+    background-color: #f1f1f1;
+    border-left: 4px solid #ff9800;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-align: left;
+}
 </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -466,21 +476,26 @@
             <input type="email" id="email" placeholder="Email" required title="Enter your email address"><br>
             <input type="text" id="phone" placeholder="Phone" required title="Enter your phone number"><br>
             <div id="linksContainer">
-            <input type="url" placeholder="LinkedIn URL" class="professional-link" title="Enter your LinkedIn profile"><br>
-            <input type="url" placeholder="GitHub URL" class="professional-link" title="Enter your GitHub profile"><br>
-</div>
+            <div class="link-group">
+            <input type="text" placeholder="Platform (e.g., GitHub)" class="platform" required>
+            <input type="url" placeholder="URL (e.g., https://github.com/username)" class="professional-link" required>
+        </div>
+    </div>
+
 <button type="button" onclick="addProfessionalLink()">+ Add Another Link</button>
+
         <button onclick="nextStep(1)">Next</button>
         </div>
         <div class="step" id="step2">
         <p>Step 2: Work Experience</p>
         <div id="experienceContainer">
         <div class="experience-entry">
-        <input type="text" placeholder="Job Title" required><br>
-        <input type="text" placeholder="Company" required><br>
-        <input type="text" placeholder="Duration" required><br>
-    </div>
-</div>
+        <input type="text" id="jobTitle" placeholder="Job Title" required>
+        <input type="text" id="company" placeholder="Company" required>
+        <input type="text" id="duration" placeholder="Duration" required>
+        </div>
+        </div>
+
         <button type="button" onclick="addExperience()">+ Add Another Experience</button><br><br>
         <button onclick="prevStep(2)">Back</button>
         <button onclick="nextStep(2)">Next</button>
@@ -507,16 +522,27 @@
             <button onclick="prevStep(4)">Back</button>
             <button onclick="nextStep(4)">Next</button>
         </div>
-        <div class="step" id="step5">
+    <div class="step" id="step5">
     <p>Step 5: Projects/Portfolio</p>
-    <input type="text" id="projectTitle" placeholder="Project Title" title="Enter project title"><br>
-    <textarea id="projectDescription" placeholder="Project Description" title="Enter project description"></textarea><br>
-    <input type="text" id="projectTechnologies" placeholder="Technologies Used" title="Enter technologies used"><br>
+    <div id="projectsContainer">
+        <div class="project-entry">
+            <input type="text" class="project-title" placeholder="Project Title" title="Enter project title" required><br>
+            <textarea class="project-description" placeholder="Project Description" title="Enter project description" required></textarea><br>
+            <input type="text" class="project-technologies" placeholder="Technologies Used" title="Enter technologies used" required><br>
+        </div>
+    </div>
+    <button type="button" onclick="addProject()">Add Another Project</button><br>
     <button onclick="prevStep(5)">Back</button>
     <button id="downloadResume">Download</button>
     <button id="downloadPDF">Export as PDF</button>
     <button onclick="resetForm()">Start Over</button>
+    <p class="info-note">
+    <strong>Note:</strong> Clicking <em>Download</em> will export plain text (great for ATS systems). 
+    Clicking <em>Export as PDF</em> will include full resume layout with styling.
+</p>
+
 </div>
+
 
     </div>
     
@@ -526,6 +552,7 @@
             <div id="resumeName" class="custom-color"></div>
             <div id="resumeEmail"></div>
             <div id="resumePhone"></div>
+            <div id="resumeLinks"></div>
             <div id="resumeExperience"></div>
             <div id="resumeEducation"></div>
             <div id="resumeSkills"></div>
@@ -624,32 +651,54 @@
         }
     });
 
-function updateLivePreview() {
+    function updateLivePreview() {
     const name = document.getElementById("name")?.value || "";
     const email = document.getElementById("email")?.value || "";
     const phone = document.getElementById("phone")?.value || "";
-    const jobTitle = document.getElementById("jobTitle")?.value || "";
-    const company = document.getElementById("company")?.value || "";
-    const duration = document.getElementById("duration")?.value || "";
     const skills = document.getElementById("skills")?.value || "";
     const summary = document.getElementById("summary")?.value || "";
     const projectTitle = document.getElementById("projectTitle")?.value || "";
     const projectDescription = document.getElementById("projectDescription")?.value || "";
     const projectTechnologies = document.getElementById("projectTechnologies")?.value || "";
 
-    // Set static fields
-    document.getElementById("resumeName").innerHTML = `<h3>${name}</h3>`;
-    document.getElementById("resumeEmail").innerHTML = `<p>Email: ${email}</p>`;
-    document.getElementById("resumePhone").innerHTML = `<p>Phone: ${phone}</p>`;
-    document.getElementById("resumeExperience").innerHTML = `<h3>Work Experience</h3><p>${jobTitle}, ${company}, ${duration}</p>`;
-    document.getElementById("resumeSkills").innerHTML = `<h3>Skills</h3><p>${skills}</p>`;
-    document.getElementById("resumeSummary").innerHTML = `<h3>Summary</h3><p>${summary}</p>`;
-    document.getElementById("resumeProjects").innerHTML = `<h3>Projects</h3><p><strong>${projectTitle}:</strong> ${projectDescription} (Technologies: ${projectTechnologies})</p>`;
+    // 🔗 Handle multiple professional links
+    const links = document.querySelectorAll(".link-group");
+    let linksHTML = "";
+    links.forEach(link => {
+    const platform = link.querySelector(".platform")?.value.trim();
+    const url = link.querySelector(".professional-link")?.value.trim();
+    if (platform && url) {
+        linksHTML += `<p>${platform}: <a href="${url}" target="_blank">${url}</a></p>`;
+    }
+    });
+    document.getElementById("resumeLinks").innerHTML = linksHTML
+    ? `<h3>Professional Links</h3>${linksHTML}`
+    : "";
 
-    // Handle multiple education entries
+    // 💼 Handle multiple work experience
+    const experienceEntries = document.querySelectorAll(".experience-entry");
+    let experienceHTML = `<h3>Work Experience</h3>`;
+    if (experienceEntries.length > 0) {
+        experienceEntries.forEach(entry => {
+            const job = entry.querySelector('input[placeholder="Job Title"]')?.value || "";
+            const company = entry.querySelector('input[placeholder="Company"]')?.value || "";
+            const duration = entry.querySelector('input[placeholder="Duration"]')?.value || "";
+            if (job || company || duration) {
+                experienceHTML += `<p>${job}, ${company}, ${duration}</p>`;
+            }
+        });
+    } else {
+        const jobTitle = document.getElementById("jobTitle")?.value || "";
+        const company = document.getElementById("company")?.value || "";
+        const duration = document.getElementById("duration")?.value || "";
+        if (jobTitle || company || duration) {
+            experienceHTML += `<p>${jobTitle}, ${company}, ${duration}</p>`;
+        }
+    }
+
+    // 🎓 Handle multiple education entries
     const educationContainer = document.querySelectorAll('.education-entry');
     let educationHTML = `<h3>Education</h3>`;
-
     if (educationContainer.length > 0) {
         educationContainer.forEach(entry => {
             const degree = entry.querySelector('[name="degree"]')?.value || "";
@@ -660,7 +709,6 @@ function updateLivePreview() {
             }
         });
     } else {
-        // fallback to original single field (if any)
         const fallbackDegree = document.getElementById("degree")?.value || "";
         const fallbackInstitution = document.getElementById("institution")?.value || "";
         const fallbackYear = document.getElementById("year")?.value || "";
@@ -669,7 +717,34 @@ function updateLivePreview() {
         }
     }
 
+    // 🧾 Update DOM
+    document.getElementById("resumeName").innerHTML = `<h3>${name}</h3>`;
+    document.getElementById("resumeEmail").innerHTML = `<p>Email: ${email}</p>`;
+    document.getElementById("resumePhone").innerHTML = `<p>Phone: ${phone}</p>`;
+    document.getElementById("resumeExperience").innerHTML = experienceHTML;
     document.getElementById("resumeEducation").innerHTML = educationHTML;
+    document.getElementById("resumeSkills").innerHTML = `<h3>Skills</h3><p>${skills}</p>`;
+    document.getElementById("resumeSummary").innerHTML = `<h3>Summary</h3><p>${summary}</p>`;
+    document.getElementById("resumeProjects").innerHTML = `<h3>Projects</h3><p><strong>${projectTitle}:</strong> ${projectDescription} (Technologies: ${projectTechnologies})</p>`;
+    
+    // ✅ Inject professional links below personal info
+    const resumeLinks = document.getElementById("resumeLinks");
+    if (resumeLinks) {
+        resumeLinks.innerHTML = `<h3>Professional Links</h3>${linksHTML}`;
+    }
+    const projectEntries = document.querySelectorAll('.project-entry');
+let projectsHTML = `<h3>Projects</h3>`;
+
+projectEntries.forEach(entry => {
+    const title = entry.querySelector('.project-title')?.value || '';
+    const desc = entry.querySelector('.project-description')?.value || '';
+    const tech = entry.querySelector('.project-technologies')?.value || '';
+    if (title || desc || tech) {
+        projectsHTML += `<p><strong>${title}</strong>: ${desc} (Technologies: ${tech})</p>`;
+    }
+});
+document.getElementById("resumeProjects").innerHTML = projectsHTML;
+
 }
 
 
@@ -677,7 +752,7 @@ function updateLivePreview() {
         input.addEventListener('input', updateLivePreview);
     });
 
-    document.getElementById('downloadResume').addEventListener('click', function() {
+        document.getElementById('downloadResume').addEventListener('click', function() {
         // Generate the resume content
         const resumeContent = document.querySelector('.resume-template').innerText;
 
@@ -709,10 +784,26 @@ function updateLivePreview() {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
 
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
 
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        const imgWidth = pageWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // Add first page
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft > 0) {
+            position -= pageHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
         pdf.save('resume.pdf');
     });
 });
@@ -732,30 +823,60 @@ function updateLivePreview() {
     }
     function addProfessionalLink() {
     const linksContainer = document.getElementById("linksContainer");
-    const input = document.createElement("input");
-    input.type = "url";
-    input.placeholder = "Custom Professional Link";
-    input.className = "professional-link";
-    input.title = "Enter another professional link";
-    linksContainer.appendChild(input);
-    linksContainer.appendChild(document.createElement("br"));
-    }
+
+    const group = document.createElement("div");
+    group.className = "link-group";
+
+    group.innerHTML = `
+        <input type="text" placeholder="Platform (e.g., GitHub)" class="platform" required>
+        <input type="url" placeholder="URL (e.g., https://github.com/username)" class="professional-link" required>
+        <button type="button" class="remove-link" style="margin-left: 10px;">Remove</button>
+        <br>
+    `;
+
+    // Attach event listener for Remove button
+    group.querySelector(".remove-link").addEventListener("click", function () {
+        group.remove();
+        updateLivePreview();
+    });
+
+    // Bind live update to both inputs
+    group.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", updateLivePreview);
+    });
+
+    linksContainer.appendChild(group);
+}
+
+    document.querySelectorAll('.professional-link, .platform').forEach(input => {
+    input.addEventListener('input', updateLivePreview);
+    });
+
+
     function addExperience() {
     const container = document.getElementById("experienceContainer");
     const div = document.createElement("div");
     div.className = "experience-entry";
     div.innerHTML = `
-        <input type="text" placeholder="Job Title" required><br>
-        <input type="text" placeholder="Company" required><br>
-        <input type="text" placeholder="Duration" required><br>
+        <input type="text" placeholder="Job Title" required>
+        <input type="text" placeholder="Company" required>
+        <input type="text" placeholder="Duration" required>
         <button type="button" onclick="removeExperience(this)">Remove</button><br><br>
     `;
     container.appendChild(div);
+
+    // Bind input listeners to update preview
+    div.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", updateLivePreview);
+    });
     }
+
     function removeExperience(button) {
     const entry = button.parentElement;
     entry.remove();
+    updateLivePreview(); // 💡 Recalculate the preview immediately after removal
     }
+
     function addEducation() {
     const container = document.getElementById("education-container");
 
@@ -768,7 +889,40 @@ function updateLivePreview() {
         <button type="button" onclick="removeField(this)">Remove</button>
     `;
     container.appendChild(entry);
+
+    // Bind input listeners to update preview
+    entry.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", updateLivePreview);
+    });
     }
+    function removeField(button) {
+    button.parentElement.remove();
+    updateLivePreview(); // 🔄 Make sure preview updates
+    }
+    function addProject() {
+    const container = document.getElementById("projectsContainer");
+    const div = document.createElement("div");
+    div.className = "project-entry";
+    div.innerHTML = `
+        <input type="text" class="project-title" placeholder="Project Title" required><br>
+        <textarea class="project-description" placeholder="Project Description" required></textarea><br>
+        <input type="text" class="project-technologies" placeholder="Technologies Used" required><br>
+        <button type="button" onclick="removeProject(this)">Remove</button><br><br>
+    `;
+    container.appendChild(div);
+
+    // Live preview binding
+    div.querySelectorAll("input, textarea").forEach(input => {
+        input.addEventListener("input", updateLivePreview);
+    });
+    }
+
+    function removeProject(button) {
+    const projectEntry = button.parentElement;
+    projectEntry.remove();
+    updateLivePreview();
+    }
+
 </script>
 </body>
 </html>
