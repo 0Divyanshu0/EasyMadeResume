@@ -481,11 +481,12 @@
             <input type="url" placeholder="URL (e.g., https://github.com/username)" class="professional-link" required>
         </div>
     </div>
+    <button type="button" onclick="addProfessionalLink()">+ Add Another Link</button>
+    <button onclick="nextStep(1)">Next</button>
+    <button type="button" onclick="hardResetForm()">Hard Reset</button>
 
-<button type="button" onclick="addProfessionalLink()">+ Add Another Link</button>
+</div>
 
-        <button onclick="nextStep(1)">Next</button>
-        </div>
         <div class="step" id="step2">
         <p>Step 2: Work Experience</p>
         <div id="experienceContainer">
@@ -499,6 +500,8 @@
         <button type="button" onclick="addExperience()">+ Add Another Experience</button><br><br>
         <button onclick="prevStep(2)">Back</button>
         <button onclick="nextStep(2)">Next</button>
+        <button type="button" onclick="hardResetForm()">Hard Reset</button>
+
 
         </div>
         <div class="step" id="step3">
@@ -515,12 +518,14 @@
             <textarea id="summary" placeholder="Summary/Objective" title="Enter summary or objective"></textarea><br>
             <button onclick="prevStep(3)">Back</button>
             <button onclick="nextStep(3)">Next</button>
+            <button type="button" onclick="hardResetForm()">Hard Reset</button>
         </div>
         <div class="step" id="step4">
             <p>Step 4: Skills</p>
             <input type="text" id="skills" placeholder="Skills (comma-separated)" title="Enter your skills, comma separated"><br>
             <button onclick="prevStep(4)">Back</button>
             <button onclick="nextStep(4)">Next</button>
+            <button type="button" onclick="hardResetForm()">Hard Reset</button>
         </div>
     <div class="step" id="step5">
     <p>Step 5: Projects/Portfolio</p>
@@ -536,6 +541,8 @@
     <button id="downloadResume">Download</button>
     <button id="downloadPDF">Export as PDF</button>
     <button onclick="resetForm()">Start Over</button>
+    <button type="button" onclick="hardResetForm()">Hard Reset</button>
+
     <p class="info-note">
     <strong>Note:</strong> Clicking <em>Download</em> will export plain text (great for ATS systems). 
     Clicking <em>Export as PDF</em> will include full resume layout with styling.
@@ -645,11 +652,16 @@
 
 
     window.addEventListener('beforeunload', function (e) {
-        if (document.getElementById('name').value) {
-            e.preventDefault();
-            e.returnValue = '';
-        }
+    // Only show warning if autosave is not available or not yet triggered
+    const isFormDirty = [...document.querySelectorAll('input, textarea')].some(input => input.value.trim());
+    const hasSavedData = localStorage.getItem('resumeFormData');
+
+    if (isFormDirty && !hasSavedData) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
     });
+
 
     function updateLivePreview() {
     const name = document.getElementById("name")?.value || "";
@@ -771,42 +783,46 @@ document.getElementById("resumeProjects").innerHTML = projectsHTML;
         document.body.removeChild(a); // Remove the link from the body
         URL.revokeObjectURL(url); // Clean up the URL object
     });
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const downloadBtn = document.getElementById('downloadPDF');
-    if (!downloadBtn) return;
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', async () => {
+            const resume = document.querySelector('.resume-template');
+            if (!resume) return alert("Resume preview not found!");
 
-    downloadBtn.addEventListener('click', async () => {
-        const resume = document.querySelector('.resume-template');
-        if (!resume) return alert("Resume preview not found!");
+            const canvas = await html2canvas(resume, { scale: 2 });
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-        const canvas = await html2canvas(resume, { scale: 2 });
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('resume.pdf');
+        });
+    }
 
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+    // 🟢 Load saved form data if exists
+    function loadFormData() {
+        const saved = localStorage.getItem('resumeFormData');
+        if (!saved) return;
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        const imgWidth = pageWidth;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        let heightLeft = imgHeight;
-        let position = 0;
-
-        // Add first page
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        while (heightLeft > 0) {
-            position -= pageHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
+        try {
+            const data = JSON.parse(saved);
+            for (let key in data) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = data[key];
+                }
+            }
+            updateLivePreview();
+        } catch (e) {
+            console.warn("Failed to restore form data", e);
         }
+    }
 
-        pdf.save('resume.pdf');
-    });
+    loadFormData();
 });
+
 
     function selectTemplate(templateName) 
     {
@@ -814,6 +830,7 @@ document.getElementById("resumeProjects").innerHTML = projectsHTML;
     templateSelector.dispatchEvent(new Event("change")); // trigger style update
     }
     function resetForm() {
+    localStorage.removeItem('resumeFormData');
     document.querySelectorAll('input, textarea').forEach(input => input.value = '');
     document.querySelectorAll('.resume-template > div').forEach(div => div.innerHTML = '');
     currentStep = 1;
@@ -891,9 +908,13 @@ document.getElementById("resumeProjects").innerHTML = projectsHTML;
     container.appendChild(entry);
 
     // Bind input listeners to update preview
-    entry.querySelectorAll("input").forEach(input => {
-        input.addEventListener("input", updateLivePreview);
+    document.querySelectorAll('input, textarea').forEach(input => {
+    input.addEventListener('input', () => {
+        updateLivePreview();
+        saveFormData(); // 🟠 Save on every keystroke
     });
+});
+
     }
     function removeField(button) {
     button.parentElement.remove();
@@ -922,7 +943,73 @@ document.getElementById("resumeProjects").innerHTML = projectsHTML;
     projectEntry.remove();
     updateLivePreview();
     }
+    function saveFormData() {
+    const formData = {};
 
+    document.querySelectorAll('input, textarea').forEach(input => {
+        if (input.id) {
+            formData[input.id] = input.value;
+        }
+    });
+
+    localStorage.setItem('resumeFormData', JSON.stringify(formData));
+}
+
+    function loadFormData() {
+    const savedData = localStorage.getItem('resumeFormData');
+    if (!savedData) return;
+
+    const formData = JSON.parse(savedData);
+    Object.entries(formData).forEach(([id, value]) => {
+        const input = document.getElementById(id);
+        if (input) input.value = value;
+    });
+
+    updateLivePreview();
+    }
+    // ✅ AUTO SAVE on every input change
+    document.querySelectorAll('input, textarea').forEach(input => {
+    input.addEventListener('input', () => {
+        const data = {};
+        document.querySelectorAll('input, textarea').forEach(field => {
+            if (field.id) {
+                data[field.id] = field.value;
+            }
+        });
+        localStorage.setItem('resumeFormData', JSON.stringify(data));
+    });
+});
+function hardResetForm() {
+    // Clear all inputs and textareas
+    document.querySelectorAll('input, textarea').forEach(input => input.value = '');
+
+    // Clear dynamic sections
+    document.getElementById("linksContainer")?.replaceChildren();
+    document.getElementById("experienceContainer")?.replaceChildren();
+    document.getElementById("education-container")?.replaceChildren();
+    document.getElementById("projectsContainer")?.replaceChildren();
+
+    // Add back one default input for each dynamic section
+    addProfessionalLink();
+    addExperience();
+    addEducation();
+    addProject();
+
+    // Clear resume preview
+    document.querySelectorAll('.resume-template > div').forEach(div => div.innerHTML = '');
+
+    // Reset progress and step
+    currentStep = 1;
+    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+    updateProgressBar();
+
+    // Clear localStorage
+    localStorage.removeItem('resumeFormData');
+
+    // Update live preview
+    updateLivePreview();
+}
 </script>
 </body>
 </html>
