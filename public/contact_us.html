@@ -416,11 +416,9 @@
     </div>
 
 <script type="module">
-    // Import Firebase SDK
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
     import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {
         apiKey: "AIzaSyAU3wIPL-3t49owuhyfl8Hq2yWBplVGXOw",
         authDomain: "easymaderesume.firebaseapp.com",
@@ -432,26 +430,83 @@
         measurementId: "G-GQJXJLM6ZS"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Handle Form Submission
-    document.getElementById("contact-form").addEventListener("submit", function (event) {
+    // 📨 Contact Form Submission
+    document.getElementById("contact-form")?.addEventListener("submit", function (event) {
         event.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
 
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
+        if (!name || !email || !message) {
+            alert("Please fill in all fields.");
+            return;
+        }
 
         push(ref(db, "messages"), { name, email, message })
             .then(() => alert("Message Sent Successfully!"))
             .catch(error => alert("Error: " + error.message));
 
-        this.reset(); // Clear form after submission
+        this.reset();
     });
 
-</script>
+    // ❓ FAQ Toggle Logic
+    const faqs = document.querySelectorAll('.faq');
+    faqs.forEach(faq => {
+        faq.querySelector('h3')?.addEventListener('click', () => {
+            faqs.forEach(f => {
+                if (f !== faq) {
+                    f.classList.remove('active');
+                    f.querySelector('p').style.display = 'none';
+                }
+            });
+            faq.classList.toggle('active');
+            const answer = faq.querySelector('p');
+            answer.style.display = faq.classList.contains('active') ? 'block' : 'none';
+        });
+    });
 
+    // 💬 Chat Toggle
+    const chatBtn = document.querySelector('.chat-button');
+    const chatBox = document.getElementById('chatBox');
+    chatBtn?.addEventListener('click', () => {
+        chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // 💬 Chat Message Sending
+    document.querySelector('#chatBox button').addEventListener('click', () => {
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const msg = chatInput.value.trim();
+
+    if (!msg) return; // 💥 Prevent empty messages
+
+    // User message
+    const userMsg = document.createElement('div');
+    userMsg.textContent = msg;
+    userMsg.style.background = '#f0f0f0';
+    userMsg.style.padding = '8px';
+    userMsg.style.margin = '5px 0';
+    userMsg.style.borderRadius = '5px';
+    chatMessages.appendChild(userMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    chatInput.value = '';
+
+    // Simulated bot reply
+    setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.textContent = "Thanks! We'll get back to you shortly.";
+        botMsg.style.background = '#ffe0b2';
+        botMsg.style.padding = '8px';
+        botMsg.style.margin = '5px 0';
+        botMsg.style.borderRadius = '5px';
+        chatMessages.appendChild(botMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1000);
+});
+</script>
 </body>
 </html>
